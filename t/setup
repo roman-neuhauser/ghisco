@@ -1,0 +1,10 @@
+export FAKE_BINDIR="$(mktemp -d)"
+export PATH="$FAKE_BINDIR:$BUILDDIR:$PATH"
+
+cat > curl.body <<\BODY
+#!/bin/sh
+printf -->&2 '%s' "$ARGV0"
+printf -->&2 ' %s' "$@"
+printf -->&2 '\n'
+printf -->&1 '{ "html_url": "https://example.org/issue#comment" }\n'
+BODY
