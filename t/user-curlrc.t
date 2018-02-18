@@ -8,6 +8,10 @@ setup::
   $ mkdir -p "$HOME/.config/ghisco"
   $ touch ~/.config/ghisco/curlrc
 
+  $ mkdir .tmp
+  $ export TMPDIR="$PWD/.tmp"
+
+
 test::
 
   $ ghisco roman-neuhauser/ghisco/pull/1 <<\EOF
@@ -18,6 +22,9 @@ test::
   > EOF
   curl --netrc --config /*/.config/ghisco/curlrc -LSfs -H Content-Type: application/json -H Accept: application/json --data @- --url https://api.github.com/repos/roman-neuhauser/ghisco/issues/1/comments (glob)
   https://example.org/issue#comment
+
+  $ ls -lA $TMPDIR
+  total 0
 
 
 test explicit curlrc::

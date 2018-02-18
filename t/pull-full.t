@@ -4,6 +4,9 @@ setup::
 
   $ fake -cb curl < curl.body
 
+  $ mkdir .tmp
+  $ export TMPDIR="$PWD/.tmp"
+
 
 test::
 
@@ -15,3 +18,6 @@ test::
   > EOF
   curl --netrc -LSfs -H Content-Type: application/json -H Accept: application/json --data @- --url https://api.github.com/repos/roman-neuhauser/ghisco/issues/1/comments
   https://example.org/issue#comment
+
+  $ ls -lA $TMPDIR
+  total 0

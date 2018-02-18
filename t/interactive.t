@@ -7,12 +7,18 @@ setup::
   $ unset EDITOR
   $ unset VISUAL
 
+  $ mkdir .tmp
+  $ export TMPDIR="$PWD/.tmp"
+
 
 test default::
 
   $ ghisco -i roman-neuhauser/ghisco/issues/1
   vi /* (glob)
   [111]
+
+  $ ls -lA $TMPDIR
+  total 0
 
 
 test $EDITOR use::
@@ -64,3 +70,6 @@ test successful edit::
   INPUT: {
   INPUT:   "body": "cannot reproduce\n"
   INPUT: }
+
+  $ ls -lA $TMPDIR
+  total 0

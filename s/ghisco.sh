@@ -47,7 +47,9 @@ EOF
 )
 url="https://api.github.com/repos/$issue/comments"
 
-msgfile=$(mktemp)
+trap 'rm -f $tmpfiles' EXIT INT TERM
+tmpfiles=
+msgfile=$(mktemp); tmpfiles="$msgfile"
 if [ -n "${interact-}" ]; then
   ${VISUAL:-${EDITOR:-vi}} $msgfile
 elif [ -n "${msg-}" ]; then
@@ -61,10 +63,10 @@ fi
   exit 1
 }
 
-jsonfile=$(mktemp)
+jsonfile=$(mktemp); tmpfiles="$tmpfiles $jsonfile"
 jq -Rs '{ body: . }' < $msgfile > $jsonfile
 
-response=$(mktemp)
+response=$(mktemp); tmpfiles="$tmpfiles $response"
 
 curl \
   $cfg \
